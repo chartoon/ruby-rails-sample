@@ -1,10 +1,10 @@
-FROM ruby:2.1-alpine
+FROM ruby:2.2-alpine
 MAINTAINER charuhas.mehendale@xoriant.com
 
 RUN apk update && apk add libstdc++ tzdata postgresql-client nodejs
 
-ADD ruby-rails-sample/Gemfile /app/  
-ADD ruby-rails-sample/Gemfile.lock /app/
+ADD Gemfile /app/  
+ADD Gemfile.lock /app/
 
 RUN gem install foreman
 
@@ -13,7 +13,7 @@ RUN apk --update add --virtual build-dependencies build-base ruby-dev \
     cd /app ; bundle install --without development test && \
     apk del build-dependencies
 
-ADD ruby-rails-sample/* /app/  
+ADD . /app/  
 RUN chown -R nobody:nogroup /app  
 USER nobody
 
