@@ -6,7 +6,8 @@ RUN apk update && apk add libstdc++ tzdata postgresql-client nodejs
 ADD Gemfile /app/  
 ADD Gemfile.lock /app/
 
-RUN gem install foreman
+RUN gem install foreman nokogiri -v '1.6.6.2'
+#RUN gem install nokogiri -v '1.6.6.2'
 
 RUN apk --update add --virtual build-dependencies build-base ruby-dev \  
     postgresql-dev libc-dev linux-headers && \
