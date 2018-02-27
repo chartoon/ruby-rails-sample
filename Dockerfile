@@ -12,6 +12,7 @@ ADD Gemfile.lock /app/
 RUN apk --update add --virtual build-dependencies build-base ruby-dev \  
     postgresql-dev libc-dev linux-headers libxml2 libxml2-dev libxslt libxslt-dev &&  \
     bundle config build.nokogiri --use-system-libraries && \
+    gem install foreman && \
     cd /app ; bundle install --without development test && \
     apk del build-dependencies
 
@@ -26,4 +27,4 @@ EXPOSE 80
 #CMD ["bundle", "exec", "unicorn", "-p", "8080", "-c", "./config/unicorn.rb"]
 
 #RUN cd /app ; bundle exec rake bootstrap
-CMD ["/usr/local/bundle/bin/foreman" "-p" "8080" "start"]
+CMD ["foreman" "-p" "8080" "start"]
