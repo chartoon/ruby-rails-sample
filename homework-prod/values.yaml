@@ -3,14 +3,14 @@
 # Declare variables to be passed into your templates.
 replicaCount: 1
 image:
-  repository: nginx
-  tag: stable
+  repository: chartoon/ruby-rails-prod
+  tag: latest
   pullPolicy: IfNotPresent
 service:
-  name: nginx
-  type: ClusterIP
+  name: http
+  type: NodePort
   externalPort: 80
-  internalPort: 80
+  internalPort: 5000
 ingress:
   enabled: false
   # Used to create an Ingress record.
