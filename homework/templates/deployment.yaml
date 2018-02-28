@@ -22,21 +22,21 @@ spec:
           ports:
             - containerPort: {{ .Values.service.internalPort }}
           env:
-          - name: postgresql
+            - name: postgresql
             value: {{ template "postgresql.fullname"}}
-          - name: SKIP_DB_WAIT
+            - name: SKIP_DB_WAIT
             value: "1"
-          - name: postgresql_USER
+            - name: postgresql_USER
             valueFrom:
               secretKeyRef:
                 name: {{ template "postgresql.fullname"}}
                 key: postgresql_USER
-          - name: postgresql_PASSWORD
+            - name: postgresql_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: {{ template "postgresql.fullname"}}
                 key: postgresql_PASSWORD
-          - name: postgresql_DATABASE
+            - name: postgresql_DATABASE
             valueFrom:
               secretKeyRef:
                 name: {{ template "postgresql.fullname"}}
@@ -55,3 +55,5 @@ spec:
       nodeSelector:
 {{ toYaml .Values.nodeSelector | indent 8 }}
     {{- end }}
+- name: RAILS_ENV
+   value: "production"
