@@ -1,0 +1,18 @@
+version:  '2'
+service:
+ db:
+   image: postgresql:0.8.2
+ environment:
+   - DATABASE_URL = postgres
+   - DATABSE_PORT = 5432
+   - DATABASENAME = mydata
+   - DATABASE_USER = user
+   - DATABASE_PASSWORD = mysupersecuresevretpassword
+ app:
+   image: chartoon/ruby-rails-prod:latest
+ environment:
+   - DATABASE_URL = postgres
+   - DATABSE_PORT = 5432
+   - DATABASENAME = mydata
+   - DATABASE_USER = user
+   - DATABASE_PASSWORD = mysupersecuresevretpassword

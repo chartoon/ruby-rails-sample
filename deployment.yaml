@@ -1,0 +1,61 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "homework.fullname" . }}
+  labels:
+    app: {{ template "homework.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "homework.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.internalPort }}
+          #### Trying to add following block.
+          env:
+            - name: postgresql
+              value: {{ template "postgresql.fullname" }}
+            - name: SKIP_DB_WAIT
+              value: "1"
+            - name: postgresql_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "postgresql.fullname" }}
+                  key: postgresql_USER
+            - name: postgresql_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "postgresql.fullname" }}
+                  key: postgresql_PASSWORD
+            - name: postgresql_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "postgresql.fullname" }}
+                  key: postgresql_DATABASE
+            - name: RAILS_ENV
+              value: "production"
+            #### Trying to add above block.
+          livenessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.service.internalPort }}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.service.internalPort }}
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+    {{- if .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.nodeSelector | indent 8 }}
+    {{- end }}
