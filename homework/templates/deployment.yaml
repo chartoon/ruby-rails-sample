@@ -1,5 +1,5 @@
 apiVersion: extension/v1beta1
-kind: deployment
+kind: Deployment
 metadata:
     name: {{ template "homework.fullname" . }}
     labels:
@@ -11,7 +11,7 @@ spec:
     replicas: {{ .Values.replicaCount }}
     template:
     metadata:
-        labels: 
+        labels:
             app: {{ template "homework.name" . }}
             release: {{ .Release.Name }}
     spec:
@@ -21,20 +21,44 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
             - containerPort: {{ .Values.service.internalPort }}
-        env:
-        - name: POSTGRESQL_HOST
-          value: {{ template "postgresql.fullname" }}
-#        livenessProbe:
-#            httpGet:
-#                path: /
-#                port: {{ .Values.service.internalPort }}
-#        redinessProbe: 
-#            httpGet:
-#                path: /
-#                port: {{ .Values.service.internalPort }}
+        #env:
+        #- name: POSTGRESQL_HOST
+        #value: {{ template "postgresql.fullname" }}
+        livenessProbe:
+            httpGet:
+                path: /
+                port: {{ .Values.service.internalPort }}
+        redinessProbe: 
+            httpGet:
+                path: /
+                port: {{ .Values.service.internalPort }}
         resources:
 {{ toYaml .Values.resources | indent 12 }}
         {{- if .Values.nodeSelector }}
             nodeSelector:
 {{ toYaml .Values.nodeSelector | indent 8 }}
         {{ end }}
+
+---
+
+env:
+- name: POSTGRESQL_HOST
+value: {{ template "postgresql.fullname" }}
+- name: POSTGRESQL_USER
+ key: postgres
+#valueFrom:
+# secretKeyRef:
+#  name: {{ template "postgresql.fullname" . }}
+#  key: POSTGRESQL_USER
+- name: POSTGRESQL_PASSWORD
+ key: postgres
+#valueFrom:
+# secretKeyRef:
+#  name: {{ template "postgresql.fullname" . }}
+#  key: POSTGRESQL_PASSWORD
+- name: POSTGRESQL_DATABASE
+ key: database
+#valueFrom:
+# secretKeyRef:
+#  name: {{ template "postgresql.fullname" . }}
+#  key: POSTGRESQL_DATABASE
