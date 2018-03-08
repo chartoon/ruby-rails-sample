@@ -2,7 +2,7 @@ replicaCount: 1
 image: 
  repository: chartoon/ruby-rails-prod
  tag: latest
- pullPolicy: ifNotPresent
+ pullPolicy: IfNotPresent
 service:
  name: http
  type: nodePort

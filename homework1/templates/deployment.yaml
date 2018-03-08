@@ -7,33 +7,33 @@ metadata:
 spec:
  replicas: {{ .Values.replicaCount }}
  template:
-  matadata:
-   lables:
+  metadata:
+   labels:
     app: {{ template "homework1.fullname" . }}
-  sepc:
+  spec:
    containers:
    - name: {{ .Chart.Name }}
-   image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-   imagePullPolicy: {{ .Values.image.pullPolicy }}
-   ports:
-    - conteinerPort: {{ .Values.service.internalPort }}
-   env:
-    - name: POSTGRESQL_HOST
-      value: {{ template "postgresql.fullname" . }}
-    - name: POSTGRESQL_USER
-      valueFrom:
-       secretKeyRef:
-        name: {{ template "postgresql.fullname" . }}
-        key: postgresUser
-    - name: POSTGRESQL_DATABASE
-      valueFrom:
-       secretKeyRef:
-        name: {{ template "postgresql.fullname" . }}
-        key: postgresDatabase
-    - name: POSTGRESQL_PASSWORD
-      valueFrom:
-       secretKeyRef:
-        name: {{ template "postgresql.fullname" . }}
-        key: postgresPassword
-    - name: RAILS_ENV
-      value: "production"
+     image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+     imagePullPolicy: {{ .Values.image.pullPolicy }}
+     ports:
+     - containerPort: {{ .Values.service.internalPort }}
+     env:
+      - name: POSTGRESQL_HOST
+        value: {{ template "postgresql.fullname" . }}
+      - name: POSTGRESQL_USER
+        valueFrom:
+         secretKeyRef:
+          name: {{ template "postgresql.fullname" . }}
+          key: postgresUser
+      - name: POSTGRESQL_DATABASE
+        valueFrom:
+         secretKeyRef:
+          name: {{ template "postgresql.fullname" . }}
+          key: postgresDatabase
+      - name: POSTGRESQL_PASSWORD
+        valueFrom:
+         secretKeyRef:
+          name: {{ template "postgresql.fullname" . }}
+          key: postgresPassword
+      - name: RAILS_ENV
+        value: "production"
