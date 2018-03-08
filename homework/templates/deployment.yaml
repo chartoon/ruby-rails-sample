@@ -1,5 +1,5 @@
-apiVersion: extension/v1beta1
-kind: Deployment
+apiVersion: extensions/v1beta2
+kind: deployment
 metadata:
     name: {{ template "homework.fullname" . }}
     labels:

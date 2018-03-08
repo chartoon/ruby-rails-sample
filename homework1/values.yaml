@@ -1,0 +1,10 @@
+replicaCount: 1
+image: 
+ repository: chartoon/ruby-rails-prod
+ tag: latest
+ pullPolicy: ifNotPresent
+service:
+ name: http
+ type: nodePort
+ externalPort: 80
+ internalPort: 3000

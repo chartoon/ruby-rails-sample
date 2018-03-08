@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+ name: {{ template "fullName" . }}
+ labels:
+  chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+spec:
+ replicas: {{ .Values.replicaCount }}
+ template:
+  matadata:
+   lables:
+    app: {{ template "fullName" . }}
+  sepc:
+   containers:
+   - name: {{ .Chart.Name }}
+   image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+   imagePullPolicy: {{ .Values.image.pullPolicy }}
+   ports:
+    - conteinerPort: {{ .Values.service.internalPort }}
+   env:
+    - name: POSTGRESQL_HOST
+      value: {{ template "postgresql.fullname" . }}
+    - name: POSTGRESQL_PASSWORD
+      valueFrom:
+       secretKeyRef:
+        name: {{ template "postgresql.fullname" . }}
+        key: postgresql_password
+    - name: RAILS_ENV
+      value: "production"
