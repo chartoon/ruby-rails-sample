@@ -8,3 +8,5 @@ service:
  type: nodePort
  externalPort: 80
  internalPort: 3000
+
+app: hello-world
