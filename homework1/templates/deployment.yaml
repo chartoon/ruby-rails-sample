@@ -26,16 +26,16 @@ spec:
         valueFrom:
          secretKeyRef:
           name: {{ template "postgresql.fullname" . }}
-          key: postgresUser
+          key: POSTGRES_USER
       - name: POSTGRESQL_DATABASE
         valueFrom:
          secretKeyRef:
           name: {{ template "postgresql.fullname" . }}
-          key: postgresDatabase
+          key: POSTGRES_PASSWORD
       - name: POSTGRESQL_PASSWORD
         valueFrom:
          secretKeyRef:
           name: {{ template "postgresql.fullname" . }}
-          key: postgresPassword
+          key: POSTGRES_PASSWORD
       - name: RAILS_ENV
         value: "production"
