@@ -3,10 +3,12 @@ image:
  repository: chartoon/ruby-rails-prod
  tag: latest
  pullPolicy: IfNotPresent
+ containerPort: 5000
 service:
  name: http
- type: nodePort
- externalPort: 80
- internalPort: 3000
+ type: NodePort
+ externalPort: 5000
+ internalPort: 5000
+ nodePort: 60606
 
 app: hello-world
