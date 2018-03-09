@@ -9,6 +9,6 @@ service:
  type: NodePort
  externalPort: 5000
  internalPort: 5000
- nodePort: 60606
+ nodePort: 30606
 
 app: hello-world
