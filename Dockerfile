@@ -26,7 +26,7 @@ USER nobody
 ENV RAILS_ENV production  
 WORKDIR /app
 
-EXPOSE 3000
+EXPOSE 5000
 #CMD ["bundle", "exec", "unicorn", "-p", "8080", "-c", "./config/unicorn.rb"]
 
 #RUN cd /app ; bundle exec rake bootstrap
