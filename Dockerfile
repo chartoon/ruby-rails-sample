@@ -30,7 +30,7 @@ EXPOSE 5000
 #CMD ["bundle", "exec", "unicorn", "-p", "8080", "-c", "./config/unicorn.rb"]
 
 #RUN rake db:create && rake db:migrate
-ENTRYPOINT ["/bin/ping"]
+ENTRYPOINT ["/bin/bash"]
 
 #RUN cd /app ; bundle exec rake bootstrap
 #CMD ["foreman" "-p" "8080" "start"]
