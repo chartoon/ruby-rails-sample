@@ -24,5 +24,5 @@ spec:
       restartPolicy: Never
       containers:
       - name: post-install-job
-        image: "chartoon/ruby-rails-prod:0.4"
+        image: "chartoon/ruby-rails-prod:0.5"
         command: ["/bin/bash/","rake db:create && rake db:migrate"]

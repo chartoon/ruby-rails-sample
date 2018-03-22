@@ -1,7 +1,7 @@
 FROM ruby:2.2-alpine
 MAINTAINER charuhas.mehendale@xoriant.com
 
-RUN apk update && apk add libstdc++ tzdata postgresql-client nodejs
+RUN apk update && apk add libstdc++ tzdata postgresql-client nodejs bash
 
 ADD Gemfile /app/  
 ADD Gemfile.lock /app/
@@ -30,8 +30,9 @@ EXPOSE 5000
 #CMD ["bundle", "exec", "unicorn", "-p", "8080", "-c", "./config/unicorn.rb"]
 
 #RUN rake db:create && rake db:migrate
-ENTRYPOINT ["/bin/bash"]
+#ENTRYPOINT ["/bin/bash"]
 
 #RUN cd /app ; bundle exec rake bootstrap
 #CMD ["foreman" "-p" "8080" "start"]
 CMD ["/usr/local/bundle/bin/foreman","start","-f","./Procfile"]
+#ENTRYPOINT ["/bin/bash"]

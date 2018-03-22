@@ -1,7 +1,7 @@
 replicaCount: 1
 image: 
  repository: chartoon/ruby-rails-prod
- tag: 0.4
+ tag: 0.5
  pullPolicy: IfNotPresent
  containerPort: 5000
 service:
